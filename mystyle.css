@@ -1,0 +1,21 @@
+tr.wolfmsg {
+    background-color: white;
+    color: red;
+	display: none;
+}
+tr.villagemsg {
+    background-color: white;
+    color: black;
+}
+tr.ghostmsg {
+    background-color: grey;
+    color: gold;
+	display: none;
+}
+tr.modmsg {
+    background-color: white;
+    color: gold;
+	font-weight: bold;
+	background-color: black;
+
+}

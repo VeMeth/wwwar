@@ -1,0 +1,210 @@
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+<link href="bootstrap.css" rel="stylesheet">
+<link href="bootstrap-drawer.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<title>WW.es History Reader</title>
+</head>
+<button id="togglewolf">Show wolves</button>
+<button id="toggledeadchat">Show salt mine</button>
+<button id="toggletownchat">Hide Townchat</button>
+<select id="getgame" onchange="makegame()">
+	<option value = "ext-035">Ext-035</option>
+	<option value = "ext-036">Ext-036</option>
+	<option value = "ext-037">Ext-037</option>
+	<option value = "ext-038">Ext-038</option>
+	<option value = "ext-039">Ext-039</option>
+	<option value = "ext-040">Ext-040</option>
+	<option value = "ext-041">Ext-041</option>
+	<option value = "ext-042">Ext-042</option>
+	<option value = "ext-043">Ext-043</option>
+	<option value = "ext-044">Ext-044</option>
+	<option value = "ext-045">Ext-045</option>
+	<option value = "ext-046">Ext-046</option>
+	<option value = "ext-047">Ext-047</option>
+	<option value = "ext-048">Ext-048</option>
+	<option value = "ext-049">Ext-049</option>
+	<option value = "ext-050">Ext-050</option>
+	<option value = "ext-051">Ext-051</option>
+	<option value = "ext-052">Ext-052</option>
+	<option value = "ext-053">Ext-053</option>
+	<option value = "ext-054">Ext-054</option>
+	<option value = "ext-055">Ext-055</option>
+	<option value = "ext-056">Ext-056</option>
+	<option value = "ext-057">Ext-057</option>
+	<option value = "ext-058">Ext-058</option>
+	<option value = "ext-059">Ext-059</option>
+	<option value = "ext-060">Ext-060</option>
+	<option value = "ext-061">Ext-061</option>
+	<option value = "ext-062">Ext-062</option>
+	<option value = "ext-063">Ext-063</option>
+	<option value = "ext-064">Ext-064</option>
+	<option value = "ext-065">Ext-065</option>
+</select>	
+<script>
+//EVENTS
+	document.getElementById('togglewolf').onclick = function() {hidewolves()};
+	document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
+	document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
+	//document.getElementById('getgame').onchange = function() {makegame(document.getElementById("getgame").value)};
+	 
+	
+//Vars
+	var inputBox = document.getElementById('PlayerName');
+	var players = [];
+	var wolfhidden = true;
+	var deadhidden = true;
+	var townhidden = false;
+	var gamename = 'ext-053';
+//initialgame
+ makegame();	
+ function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}   
+    
+	function hidewolves() {
+		if (wolfhidden) {
+		document.getElementById("togglewolf").innerHTML = "Hide Wolves";
+		$('.wolfmsg').show();
+		wolfhidden = false;
+		}
+		else {
+		document.getElementById("togglewolf").innerHTML = "Show Wolves";
+		$('.wolfmsg').hide();
+		wolfhidden = true;
+		}
+		
+	}
+	
+	function hidedeadchat() {
+		if (deadhidden) {
+		document.getElementById("toggledeadchat").innerHTML = "Hide salt mine";
+		$('.ghostmsg').show();
+		deadhidden = false;
+		}
+		else {
+		document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
+		$('.ghostmsg').hide();
+		deadhidden = true;
+		}
+		
+	}
+	
+		function hidetownchat() {
+		if (townhidden) {
+		document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
+		$('.villagemsg').show();
+		townhidden = false;
+		}
+		else {
+		document.getElementById("toggletownchat").innerHTML = "Show Townchat";
+		$('.villagemsg').hide();
+		townhidden = true;
+		}
+		
+	}
+	
+	function formatter(msgtype,position) {
+		var formatclass = '';
+		switch(msgtype) 
+		{
+		//"
+		case "Werewolf.GameEngine.Chatting.WerewolfNightMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='wolfmsg' >";
+		break;
+		
+		case "Werewolf.GameEngine.Chatting.GhostMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='ghostmsg' >";
+		break;
+		
+		case "Werewolf.GameEngine.Core.ModeratorMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
+		case "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
+		case "Werewolf.GameEngine.Phases.Day.PlayerLynchedEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
+		default:
+		formatclass = "<tr class='villagemsg' >"
+		
+		
+		}
+		return formatclass
+	}
+  
+  function makegame()
+  {	
+	wolfhidden = true;
+	deadhidden = true;
+	townhidden = false;
+	document.getElementById("togglewolf").innerHTML = "Show Wolves";
+	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
+	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
+  console.log('Starting');
+  $("#tbdi").empty();
+			gamename = document.getElementById('getgame').value;
+            var a = {};
+			var filename = gamename+'.json'
+			console.log('Processing '+filename);
+            $.getJSON(filename, function (data) {
+                a = data;
+			console.log('Got Data');
+    $.each(a, function(idx, elem){
+		
+				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
+			players[elem.OriginalName] = elem.NewName;
+			console.log('Creating Playerlist');
+           }
+		   if (elem.__type == "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine"){
+			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' votes to put '+players[elem.Target]+' on trial'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+			}
+			if (elem.__type == "Werewolf.GameEngine.Phases.Day.PlayerLynchedEvent, Werewolf.GameEngine"){
+			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was lynched by the village'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+			console.log('Lynch Event');
+			}
+		
+		
+		   
+			if (elem.__type == "Werewolf.GameEngine.Core.ModeratorMessageEvent, Werewolf.GameEngine") {
+				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+elem.Message +'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+				}
+			if (elem.PlayerName != null && elem.Message != null) {
+			    var weekday = '';
+				var date = new Date(parseInt(elem.TimeStamp.substr(6)));
+				stunden = addZero(date.getHours());
+				minuten = addZero(date.getMinutes());
+				sekunden = addZero(date.getSeconds());
+				day = date.getDay();
+				switch (day) { 
+				case "0": weekday = "Mon"; break;
+				case "1": weekday = "Tue"; break;
+				case "2": weekday = "Wed"; break;
+				case "3": weekday = "Thu"; break;
+				case "4": weekday = "Fri"; break;
+				case "5": weekday = "Sat"; break;
+				case "6": weekday = "Sun"; break;
+				}
+				
+				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+players[elem.PlayerName]+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');}
+				//console.log('Adding entry');				
+			
+	
+    });
+                });
+}
+console.log(players);
+         </script>
+
+<table id="tbl">
+<thead><tr><th>PlayerName</th><th>Message</th><th>Date</th></tr></thead>
+<tbody id="tbdi"></tbody>
+</table>
