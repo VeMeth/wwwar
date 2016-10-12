@@ -47,8 +47,6 @@
 	document.getElementById('togglewolf').onclick = function() {hidewolves()};
 	document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
 	document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
-	//document.getElementById('getgame').onchange = function() {makegame(document.getElementById("getgame").value)};
-	 
 	
 //Vars
 	var inputBox = document.getElementById('PlayerName');
@@ -59,13 +57,15 @@
 	var gamename = 'ext-053';
 //initialgame
  makegame();	
+ 
+ //Add zeros to dates under 10
  function addZero(i) {
     if (i < 10) {
         i = "0" + i;
     }
     return i;
 }   
-    
+//hide Wolfchat
 	function hidewolves() {
 		if (wolfhidden) {
 		document.getElementById("togglewolf").innerHTML = "Hide Wolves";
@@ -79,7 +79,7 @@
 		}
 		
 	}
-	
+//hide Deadchat	
 	function hidedeadchat() {
 		if (deadhidden) {
 		document.getElementById("toggledeadchat").innerHTML = "Hide salt mine";
@@ -93,7 +93,7 @@
 		}
 		
 	}
-	
+//hide Villager Chat	
 		function hidetownchat() {
 		if (townhidden) {
 		document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
@@ -107,7 +107,7 @@
 		}
 		
 	}
-	
+//format events 	
 	function formatter(msgtype,position) {
 		var formatclass = '';
 		switch(msgtype) 
@@ -140,9 +140,10 @@
 		}
 		return formatclass
 	}
-  
+//Create a new game to read  
   function makegame()
   {	
+  //reset Chat buttons
 	wolfhidden = true;
 	deadhidden = true;
 	townhidden = false;
@@ -150,7 +151,9 @@
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
 	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
   console.log('Starting');
+  //empty exisiting game
   $("#tbdi").empty();
+  //Read json file
 			gamename = document.getElementById('getgame').value;
             var a = {};
 			var filename = gamename+'.json'
@@ -159,14 +162,16 @@
                 a = data;
 			console.log('Got Data');
     $.each(a, function(idx, elem){
-		
+				//Create player list
 				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
 			players[elem.OriginalName] = elem.NewName;
 			console.log('Creating Playerlist');
            }
+		   //Find players put on trial events
 		   if (elem.__type == "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' votes to put '+players[elem.Target]+' on trial'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 			}
+			//Find lynch events
 			if (elem.__type == "Werewolf.GameEngine.Phases.Day.PlayerLynchedEvent, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was lynched by the village'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 			console.log('Lynch Event');
