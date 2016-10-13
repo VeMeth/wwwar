@@ -51,10 +51,12 @@
 //Vars
 	var inputBox = document.getElementById('PlayerName');
 	var players = [];
+	var origplayers = [];
 	var wolfhidden = true;
 	var deadhidden = true;
 	var townhidden = false;
 	var gamename = 'ext-053';
+	var shiftername = '';
 //initialgame
  makegame();	
  
@@ -137,6 +139,10 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 		
+		case "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
 		default:
 		formatclass = "<tr class='villagemsg' >"
 		
@@ -157,6 +163,8 @@
   console.log('Starting');
   //empty exisiting game
   players = [];
+  origplayers = players;
+  console.log(origplayers);
   $("#tbdi").empty();
   //Read json file
 			gamename = document.getElementById('getgame').value;
@@ -178,11 +186,28 @@
 				if (players[elem.OriginalName] != players[elem.NewName]) {
 					$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.OriginalName]+' shifted into '+players[elem.NewName]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 					console.log('Found Shapeshift');
+					//swapping names
+					console.log('Make '+players[elem.OriginalName]+' to '+players[elem.NewName]);
+					shiftername = players[elem.OriginalName]
+					players[elem.OriginalName] = players[elem.NewName];
+					
 					}
-			players[elem.OriginalName] = players[elem.NewName];
-			console.log(players);
+					else {
+					console.log('Make '+players[elem.OriginalName]+' to '+shiftername);
+					players[elem.OriginalName] = shiftername;
+					shiftername = '';
+					}
+					//console.log(players);
+			
+			
 			}
            
+		   //Find players killed during the night
+		   if (elem.__type == "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine"){
+			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was killed during the night'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+			
+			}
+		   
 		   //Find players put on trial events
 		   if (elem.__type == "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' votes to put '+players[elem.Target]+' on trial'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
