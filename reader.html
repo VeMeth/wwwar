@@ -175,6 +175,22 @@
                 a = data;
 			console.log('Got Data');
     $.each(a, function(idx, elem){
+			// create date 
+			var weekday = '';
+				var date = new Date(parseInt(elem.TimeStamp.substr(6)));
+				stunden = addZero(date.getHours());
+				minuten = addZero(date.getMinutes());
+				sekunden = addZero(date.getSeconds());
+				day = date.getDay();
+				switch (day) { 
+				case "0": weekday = "Mon"; break;
+				case "1": weekday = "Tue"; break;
+				case "2": weekday = "Wed"; break;
+				case "3": weekday = "Thu"; break;
+				case "4": weekday = "Fri"; break;
+				case "5": weekday = "Sat"; break;
+				case "6": weekday = "Sun"; break;
+				}
 				//Create player list
 				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
 			players[elem.OriginalName] = elem.NewName;
@@ -201,6 +217,11 @@
 			
 			
 			}
+			//pre-game chat
+			 if (elem.__type == "Werewolf.GameEngine.Chatting.PendingGameMessage, Werewolf.GameEngine"){
+			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+elem.PlayerName+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+			
+			}
            
 		   //Find players killed during the night
 		   if (elem.__type == "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine"){
@@ -223,22 +244,8 @@
 			if (elem.__type == "Werewolf.GameEngine.Core.ModeratorMessageEvent, Werewolf.GameEngine") {
 				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+elem.Message +'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 				}
-			if (elem.PlayerName != null && elem.Message != null) {
-			    var weekday = '';
-				var date = new Date(parseInt(elem.TimeStamp.substr(6)));
-				stunden = addZero(date.getHours());
-				minuten = addZero(date.getMinutes());
-				sekunden = addZero(date.getSeconds());
-				day = date.getDay();
-				switch (day) { 
-				case "0": weekday = "Mon"; break;
-				case "1": weekday = "Tue"; break;
-				case "2": weekday = "Wed"; break;
-				case "3": weekday = "Thu"; break;
-				case "4": weekday = "Fri"; break;
-				case "5": weekday = "Sat"; break;
-				case "6": weekday = "Sun"; break;
-				}
+			if (elem.PlayerName != null && elem.Message != null && elem.__type != "Werewolf.GameEngine.Chatting.PendingGameMessage, Werewolf.GameEngine") {
+			    
 				
 				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+players[elem.PlayerName]+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');}
 				//console.log('Adding entry');				
