@@ -133,6 +133,10 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 		
+		case "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.IdentitySwappedByShapeshifterEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
 		default:
 		formatclass = "<tr class='villagemsg' >"
 		
@@ -152,6 +156,7 @@
 	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
   console.log('Starting');
   //empty exisiting game
+  players = [];
   $("#tbdi").empty();
   //Read json file
 			gamename = document.getElementById('getgame').value;
@@ -166,7 +171,18 @@
 				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
 			players[elem.OriginalName] = elem.NewName;
 			console.log('Creating Playerlist');
-           }
+			}
+			
+			//account for shapeshifts
+			if (elem.__type == "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.IdentitySwappedByShapeshifterEvent, Werewolf.GameEngine"){
+				if (players[elem.OriginalName] != players[elem.NewName]) {
+					$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.OriginalName]+' shifted into '+players[elem.NewName]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+					console.log('Found Shapeshift');
+					}
+			players[elem.OriginalName] = players[elem.NewName];
+			console.log(players);
+			}
+           
 		   //Find players put on trial events
 		   if (elem.__type == "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' votes to put '+players[elem.Target]+' on trial'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
