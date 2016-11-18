@@ -41,6 +41,27 @@
 	<option value = "ext-063">Ext-063</option>
 	<option value = "ext-064">Ext-064</option>
 	<option value = "ext-065">Ext-065</option>
+	<option value = "ext-066">Ext-066</option>
+	<option value = "ext-067">Ext-067</option>
+	<option value = "ext-068">Ext-068</option>
+	<option value = "ext-069">Ext-069</option>
+	<option value = "ext-070">Ext-070</option>
+	<option value = "ext-071">Ext-071</option>
+	<option value = "ext-072">Ext-072</option>
+	<option value = "ext-073">Ext-073</option>
+	<option value = "ext-074">Ext-074</option>
+	<option value = "ext-075">Ext-075</option>
+	<option value = "ext-076">Ext-076</option>
+	<option value = "ext-077">Ext-077</option>
+	<option value = "ext-078">Ext-078</option>
+	<option value = "ext-079">Ext-079</option>
+	<option value = "spd-003">Spd-003</option>
+	<option value = "spd-004">Spd-004</option>
+	<option value = "spd-005">Spd-005</option>
+	<option value = "spd-006">Spd-006</option>
+	<option value = "spd-007">Spd-007</option>
+	<option value = "spd-008">Spd-008</option>
+	
 </select>	
 <script>
 //EVENTS
@@ -195,6 +216,12 @@
 				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
 			players[elem.OriginalName] = elem.NewName;
 			console.log('Creating Playerlist');
+			}
+			
+			//Create player list
+				if (elem.__type == "Werewolf.GameEngine.Core.NewIdentityAssignedEvent, Werewolf.GameEngine") {
+			players[elem.OriginalName] = elem.NewName;
+			console.log('Creating Rolelist');
 			}
 			
 			//account for shapeshifts
