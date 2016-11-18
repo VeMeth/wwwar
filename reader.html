@@ -203,13 +203,13 @@
 					$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.OriginalName]+' shifted into '+players[elem.NewName]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 					console.log('Found Shapeshift');
 					//swapping names
-					console.log('Make '+players[elem.OriginalName]+' to '+players[elem.NewName]);
+					console.log('Swap '+players[elem.OriginalName]+' with '+players[elem.NewName]);
 					shiftername = players[elem.OriginalName]
 					players[elem.OriginalName] = players[elem.NewName];
 					
 					}
 					else {
-					console.log('Make '+players[elem.OriginalName]+' to '+shiftername);
+					console.log('Swap '+players[elem.OriginalName]+' with '+shiftername);
 					players[elem.OriginalName] = shiftername;
 					shiftername = '';
 					}
@@ -258,6 +258,6 @@ console.log(players);
          </script>
 
 <table id="tbl">
-<thead><tr><th>PlayerName</th><th>Message</th><th>Date</th></tr></thead>
+<thead><tr><th><span title="Deadchat">PlayerName</span></th><th>Message</th><th>Date</th></tr></thead>
 <tbody id="tbdi"></tbody>
 </table>
