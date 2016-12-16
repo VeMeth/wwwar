@@ -64,6 +64,7 @@
 	<option value = "ext-087">Ext-087</option>
 	<option value = "ext-088">Ext-088</option>
 	<option value = "ext-089">Ext-089</option>
+	<option value = "ext-093">Ext-093</option>
 	<option value = "spd-003">Spd-003</option>
 	<option value = "spd-004">Spd-004</option>
 	<option value = "spd-005">Spd-005</option>
@@ -180,6 +181,9 @@
 		case "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine":
 		formatclass = "<tr class='modmsg' >";
 		break;
+		case "Werewolf.GameEngine.Roles.Coven.Djinn.DjinnSwappedPlayerIdentities, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
 		
 		default:
 		formatclass = "<tr class='villagemsg' >"
@@ -258,6 +262,25 @@
 					shiftername = '';
 					}
 					//console.log(players);
+			}
+			//account for djinn swaps
+			if (elem.__type == "Werewolf.GameEngine.Roles.Coven.Djinn.DjinnSwappedPlayerIdentities, Werewolf.GameEngine"){
+				
+					$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.FirstPlayer]+' was swapped with '+players[elem.SecondPlayer]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+					console.log('Found Djinn Swap');
+					//swapping names
+					console.log('Swap '+players[elem.FirstPlayer]+' with '+players[elem.SecondPlayer]);
+					swapname1 = players[elem.FirstPlayer];
+					swapname2 = players[elem.SecondPlayer];
+					//console.log('swapname1 = '+swapname1);
+					console.log(swapname1+' is now '+swapname2);
+					players[elem.FirstPlayer] = players[elem.SecondPlayer];
+					console.log(swapname2+' is now '+swapname1);
+					players[elem.SecondPlayer] = swapname1;
+					swapname1 = '';
+					swapname2 = '';
+					
+					
 			
 			
 			}
