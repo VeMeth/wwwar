@@ -7,6 +7,7 @@
 <title>WW.es History Reader</title>
 </head>
 <button id="togglewolf">Show wolves</button>
+<button id="togglecovenchat">Show coven</button>
 <button id="toggledeadchat">Show salt mine</button>
 <button id="toggletownchat">Hide Townchat</button>
 <select id="getgame" onchange="makegame()">
@@ -86,6 +87,7 @@
 	document.getElementById('togglewolf').onclick = function() {hidewolves()};
 	document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
 	document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
+	document.getElementById('togglecovenchat').onclick = function() {hidecovenchat()};
 	
 //Vars
 	var inputBox = document.getElementById('PlayerName');
@@ -93,6 +95,7 @@
 	var origplayers = [];
 	var wolfhidden = true;
 	var deadhidden = true;
+	var covenhidden = true;
 	var townhidden = false;
 	var gamename = 'ext-053';
 	var shiftername = '';
@@ -148,6 +151,21 @@
 		}
 		
 	}
+	
+	//hide Coven Chat	
+		function hidecovenchat() {
+		if (townhidden) {
+		document.getElementById("togglecovenchat").innerHTML = "Hide covenchat";
+		$('.covenmsg').show();
+		townhidden = false;
+		}
+		else {
+		document.getElementById("togglecovenchat").innerHTML = "Show covenchat";
+		$('.covenmsg').hide();
+		townhidden = true;
+		}
+		
+	}
 //format events 	
 	function formatter(msgtype,position) {
 		var formatclass = '';
@@ -185,6 +203,14 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 		
+		case "Werewolf.GameEngine.Chatting.CovenNightMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='covenmsg' >";
+		break; 
+		
+		case "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.ShapeshifterSwappedPlayerIdentities, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+		
 		default:
 		formatclass = "<tr class='villagemsg' >"
 		
@@ -198,8 +224,10 @@
   //reset Chat buttons
 	wolfhidden = true;
 	deadhidden = true;
+	covenhidden = true;
 	townhidden = false;
 	document.getElementById("togglewolf").innerHTML = "Show Wolves";
+	document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
 	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
   console.log('Starting');
@@ -245,7 +273,7 @@
 			console.log('Creating Rolelist');
 			}
 			
-			//account for shapeshifts
+			//account for legacy shapeshifts
 			if (elem.__type == "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.IdentitySwappedByShapeshifterEvent, Werewolf.GameEngine"){
 				if (players[elem.OriginalName] != players[elem.NewName]) {
 					$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.OriginalName]+' shifted into '+players[elem.NewName]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
@@ -262,6 +290,22 @@
 					shiftername = '';
 					}
 					//console.log(players);
+			}
+			//account for shapeshifts
+			if (elem.__type == "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.ShapeshifterSwappedPlayerIdentities, Werewolf.GameEngine"){
+				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.FirstPlayer]+' was shapeshifted by  '+players[elem.SecondPlayer]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+					console.log('Found Shapeshift');
+					//swapping names
+					console.log('Swap '+players[elem.FirstPlayer]+' with '+players[elem.SecondPlayer]);
+					wswapname1 = players[elem.FirstPlayer];
+					wswapname2 = players[elem.SecondPlayer];
+					//console.log('wswapname1 = '+wswapname1);
+					console.log(wswapname1+' is now '+wswapname2);
+					players[elem.FirstPlayer] = players[elem.SecondPlayer];
+					console.log(wswapname2+' is now '+wswapname1);
+					players[elem.SecondPlayer] = wswapname1;
+					wswapname1 = '';
+					wswapname2 = '';
 			}
 			//account for djinn swaps
 			if (elem.__type == "Werewolf.GameEngine.Roles.Coven.Djinn.DjinnSwappedPlayerIdentities, Werewolf.GameEngine"){
@@ -314,7 +358,7 @@
 			if (elem.PlayerName != null && elem.Message != null && elem.__type != "Werewolf.GameEngine.Chatting.PendingGameMessage, Werewolf.GameEngine") {
 			    
 				
-				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+players[elem.PlayerName]+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');}
+				$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td title='+elem.PlayerName+'>'+players[elem.PlayerName]+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');}
 				//console.log('Adding entry');				
 			
 	

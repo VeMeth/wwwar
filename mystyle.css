@@ -19,3 +19,8 @@ tr.modmsg {
 	background-color: black;
 
 }
+tr.covenmsg {
+    background-color: white;
+    color: purple;
+	display: none;
+}
