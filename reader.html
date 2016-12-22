@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<meta charset= utf-8>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="mystyle.css">
@@ -6,10 +9,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <title>WW.es History Reader</title>
 </head>
+<body>
 <button id="togglewolf">Show wolves</button>
 <button id="togglecovenchat">Show coven</button>
 <button id="toggledeadchat">Show salt mine</button>
 <button id="toggletownchat">Hide Townchat</button>
+<!--Extended games-->
 <select id="getgame" onchange="makegame()">
 	<option value = "ext-035">Ext-035</option>
 	<option value = "ext-036">Ext-036</option>
@@ -67,6 +72,7 @@
 	<option value = "ext-089">Ext-089</option>
 	<option value = "ext-093">Ext-093</option>
 </select>
+<!--Speedgames-->
 <select id="getgame" onchange="makegame()">
 	<option value = "spd-003">Spd-003</option>
 	<option value = "spd-004">Spd-004</option>
@@ -374,3 +380,6 @@ console.log(players);
 <thead><tr><th><span title="Deadchat">PlayerName</span></th><th>Message</th><th>Date</th></tr></thead>
 <tbody id="tbdi"></tbody>
 </table>
+</body>
+</html>
+
