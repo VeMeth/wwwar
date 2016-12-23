@@ -126,6 +126,10 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 
+    case "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+
 		default:
 		formatclass = "<tr class='villagemsg' >"
 
@@ -264,6 +268,12 @@
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was lynched by the village'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 			console.log('Lynch Event');
 			}
+
+      //Find protector events
+      if (elem.__type == "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine"){
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.ProtectorName]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Night Event');
+      }
 
 
 
