@@ -160,6 +160,7 @@
 	document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
 	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
+  $('div#days').empty();
   console.log('Starting');
   //empty exisiting game
   players = [];
