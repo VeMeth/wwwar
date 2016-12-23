@@ -263,7 +263,7 @@
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+elem.PlayerName+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
 
 			}
-
+      //find Daybreak
       if (elem.__type == "Werewolf.GameEngine.Phases.Day.DayStartedEvent, Werewolf.GameEngine"){
         protectortarget = "";
         daycount++;
@@ -297,6 +297,13 @@
       if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Protector" && protectortarget != elem.Target){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Night Event');
+      }
+
+      //Find NEW stalker events... THX mark!
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Stalker" && protectortarget != elem.Target){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to stalk '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Night Event');
       }
 
