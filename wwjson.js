@@ -130,6 +130,10 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 
+    case "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='modmsg' >";
+		break;
+
 		default:
 		formatclass = "<tr class='villagemsg' >"
 
@@ -272,6 +276,11 @@
       //Find protector events
       if (elem.__type == "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine"){
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.ProtectorName]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Night Event');
+      }
+      //Find NEW protector events... THX mark!
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Protector" ){
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Night Event');
       }
 
