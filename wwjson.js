@@ -134,6 +134,10 @@
 		formatclass = "<tr class='modmsg' >";
 		break;
 
+    case "Werewolf.GameEngine.Phases.Day.DayStartedEvent, Werewolf.GameEngine":
+    formatclass = "<tr class='modmsg' >";
+    break;
+
 		default:
 		formatclass = "<tr class='villagemsg' >"
 
@@ -149,6 +153,9 @@
 	deadhidden = true;
 	covenhidden = true;
 	townhidden = false;
+  //reset more stuff
+  protectortarget = "";
+  daycount = 1;
 	document.getElementById("togglewolf").innerHTML = "Show Wolves";
 	document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
@@ -257,6 +264,13 @@
 
 			}
 
+      if (elem.__type == "Werewolf.GameEngine.Phases.Day.DayStartedEvent, Werewolf.GameEngine"){
+        protectortarget = "";
+        daycount++;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td id=day'+daycount+'>'+'Moderator'+'</td><td> Day '+daycount+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Daybreak');
+      }
+
 		   //Find players killed during the night
 		   if (elem.__type == "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was killed during the night'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
@@ -274,12 +288,14 @@
 			}
 
       //Find protector events
-      if (elem.__type == "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine"){
+      if (elem.__type == "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine" && protectortarget != elem.Target){
+        protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.ProtectorName]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Night Event');
       }
       //Find NEW protector events... THX mark!
-      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Protector" ){
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Protector" && protectortarget != elem.Target){
+        protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Night Event');
       }
