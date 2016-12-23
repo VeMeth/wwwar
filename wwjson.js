@@ -301,19 +301,43 @@
       }
 
       //Find NEW stalker events... THX mark!
-      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Stalker" && protectortarget != elem.Target){
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Stalker"){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to stalk '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Stalker Event');
       }
 
-      //Find NEW digg up events... THX mark!
-      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Gravedigger" && protectortarget != elem.Target){
+      //Find NEW Gravedigger events... THX mark!
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Gravedigger"){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to dig up '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Gravedigger Event');
       }
 
+      //Find NEW Bloodhound events... THX mark!
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Bloodhound"){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' the Bloodhound chose to check '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Bloodhound Event');
+      }
+
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Seer"){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' the Seer chose to check '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Seer Event');
+      }
+
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Harlot"){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' the harlot chose to visit '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Harlot Event');
+      }
+
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Militia"){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' the militia chose to shoot '+players[elem.Target]+' !!!</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Harlot Event');
+      }
 
 
 			if (elem.__type == "Werewolf.GameEngine.Core.ModeratorMessageEvent, Werewolf.GameEngine") {
