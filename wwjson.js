@@ -268,7 +268,7 @@
       if (elem.__type == "Werewolf.GameEngine.Phases.Day.DayStartedEvent, Werewolf.GameEngine"){
         protectortarget = "";
         daycount++;
-      $('div#centering').append('<a href=#day'+daycount+'>Day '+daycount+'</a> | ');
+      $('div#days').append('<a href=#day'+daycount+'>Day '+daycount+'</a> | ');
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td id=day'+daycount+'>'+'Moderator'+'</td><td> Day '+daycount+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
       console.log('Daybreak');
       }
