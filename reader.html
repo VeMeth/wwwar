@@ -8,7 +8,36 @@
 			<link href="bootstrap-drawer.css" rel="stylesheet">
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 			<title>WW.es History Reader</title>
-						<style>
+			<style>
+				blockquote cite {
+					color: #999999;
+					font-size: 14px;
+					display: block;
+					margin-top: 5px;
+				}
+
+				blockquote cite:before {
+					content: "\2014 \2009";
+				}
+			blockquote:before {
+				display: block;
+				content: "\201C";
+				font-size: 80px;
+				position: absolute;
+				top: -20px;
+				color: #7a7a7a;
+				}
+			blockquote {
+				font-family: Georgia, serif;
+				font-size: 18px;
+				font-style: italic;
+				width: 500px;
+				padding: 0.25em 40px;
+				line-height: 1.45;
+				position: relative;
+				color: #383838;
+				margin-bottom: -50px;
+				}
 			#lengte{
 				width: 130px;
 			}
@@ -16,6 +45,8 @@
 				margin-top: 3.5%;
 			}
 			#message{
+				margin-left: auto;
+				margin-right: auto;
 				text-align: center;
 			}
 			body{
@@ -56,6 +87,7 @@
 			</style>
 		</head>
 		<body>
+			<center>
 			<div class="header">
 			<div id="centering">
 			<button id="togglewolf">Show wolves</button>
@@ -135,7 +167,16 @@
 			</select>
 		</div>
 	</div>
-			<h3> <p id="message"> The saltmine reader</p> </h3>
+	</center>
+	<center>
+		<h3>
+			<p id="message">
+				<blockquote>
+					The saltmine reader <br> But guys, I am the seer!<cite>Coven</cite>
+				</blockquote>
+			</p> 
+		</h3>
+	</center>
 
 <table id="tbl">
 <thead><tr><th id="lengte"><span title="Deadchat">PlayerName</span></th><th>Message</th><th>Date</th></tr></thead>
