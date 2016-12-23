@@ -7,8 +7,15 @@
 			<link href="bootstrap.css" rel="stylesheet">
 			<link href="bootstrap-drawer.css" rel="stylesheet">
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+			<link rel="shortcut icon" href="https://cdn2.iconfinder.com/data/icons/halloween-icon-t-event-flat/64/Halloween-Line-Scythe-512.png">
 			<title>WW.es History Reader</title>
 			<style>
+			a{
+				color: white;
+			}
+			a:hover{
+				color: black;
+			}
 			#days{
 				
 			}
@@ -40,6 +47,7 @@
 				position: relative;
 				color: #383838;
 				margin-bottom: -50px;
+				margin-top: 100px;
 				}
 			#lengte{
 				width: 130px;
@@ -57,12 +65,14 @@
 				padding-top: 0px;
 			}
 			.header{
+				z-index: 1;
 				top: 0px;
 				position: fixed;
 				border: 1px solid black;
 				width: 100%;
 				background: grey;
 				padding: 10px;
+				margin-bottom: 30px;
 			}
 			#centering{
 				width:50%;
@@ -192,3 +202,4 @@
 <!-- Javascript parsing the game json file.-->
 <script src="wwjson.js"></script>
 </html>
+
