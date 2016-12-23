@@ -291,20 +291,27 @@
       if (elem.__type == "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine" && protectortarget != elem.Target){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.ProtectorName]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
-      console.log('Night Event');
+      console.log('Old Protector Event');
       }
       //Find NEW protector events... THX mark!
       if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Protector" && protectortarget != elem.Target){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to protect '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
-      console.log('Night Event');
+      console.log('Protector Event');
       }
 
       //Find NEW stalker events... THX mark!
       if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Stalker" && protectortarget != elem.Target){
         protectortarget = elem.Target;
       $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to stalk '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
-      console.log('Night Event');
+      console.log('Stalker Event');
+      }
+
+      //Find NEW digg up events... THX mark!
+      if (elem.__type == "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine" && elem.Role == "Gravedigger" && protectortarget != elem.Target){
+        protectortarget = elem.Target;
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerWithRole]+' chose to dig up '+players[elem.Target]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Gravedigger Event');
       }
 
 
