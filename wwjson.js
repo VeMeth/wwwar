@@ -3,7 +3,7 @@
   document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
   document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
   document.getElementById('togglecovenchat').onclick = function() {hidecovenchat()};
-
+  document.getElementById('togglevampchat').onclick = function() {hidevampchat()};
 //Vars
 	var inputBox = document.getElementById('PlayerName');
 	var players = [];
@@ -11,6 +11,7 @@
 	var wolfhidden = true;
 	var deadhidden = true;
 	var covenhidden = true;
+  var vamphidden = true;
 	var townhidden = false;
 	var gamename = 'ext-053';
 	var shiftername = '';
@@ -69,18 +70,33 @@
 
 	//hide Coven Chat
 		function hidecovenchat() {
-		if (townhidden) {
+		if (covenhidden) {
 		document.getElementById("togglecovenchat").innerHTML = "Hide covenchat";
 		$('.covenmsg').show();
-		townhidden = false;
+		covenhidden = false;
 		}
 		else {
 		document.getElementById("togglecovenchat").innerHTML = "Show covenchat";
 		$('.covenmsg').hide();
-		townhidden = true;
+		covenhidden = true;
 		}
 
 	}
+
+  //hide vamp Chat
+    function hidevampchat() {
+    if (vamphidden) {
+    document.getElementById("togglevampchat").innerHTML = "Hide vampires";
+    $('.vampmsg').show();
+    vamphidden = false;
+    }
+    else {
+    document.getElementById("togglevampchat").innerHTML = "Show vampires";
+    $('.vampmsg').hide();
+    vamphidden = true;
+    }
+
+  }
 
 //Create a new game to read
   function makegame()
@@ -90,6 +106,7 @@
 	deadhidden = true;
 	covenhidden = true;
 	townhidden = false;
+  vamphidden = true;
   //reset more stuff
   protectortarget = "";
   daycount = 1;
@@ -97,6 +114,7 @@
 	document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
 	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
+  	document.getElementById("togglevampchat").innerHTML = "Show vampires";
 //Empty Links
   $('div#days').empty();
   console.log('Starting');

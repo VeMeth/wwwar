@@ -24,3 +24,9 @@ tr.covenmsg {
     color: purple;
 	display: none;
 }
+
+tr.vampmsg {
+    background-color: white;
+    color: orange;
+	display: none;
+}

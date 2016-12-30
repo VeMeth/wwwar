@@ -62,6 +62,10 @@
     formatclass = "<tr class='modmsg' >";
     break;
 
+    case "Werewolf.GameEngine.Roles.Vampires.VampireNightMessageEvent, Werewolf.GameEngine":
+    formatclass = "<tr class='vampmsg' >";
+    break;
+
 		default:
 		formatclass = "<tr class='villagemsg' >"
 
