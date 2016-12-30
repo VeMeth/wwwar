@@ -81,70 +81,7 @@
 		}
 
 	}
-//format events
-	function formatter(msgtype,position) {
-		var formatclass = '';
-		switch(msgtype)
-		{
-		//"
-		case "Werewolf.GameEngine.Chatting.WerewolfNightMessageEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='wolfmsg' >";
-		break;
 
-		case "Werewolf.GameEngine.Chatting.GhostMessageEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='ghostmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Core.ModeratorMessageEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Phases.Day.VillageNominationEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Phases.Day.PlayerLynchedEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.IdentitySwappedByShapeshifterEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Phases.Night.PlayerKilledEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-		case "Werewolf.GameEngine.Roles.Coven.Djinn.DjinnSwappedPlayerIdentities, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Chatting.CovenNightMessageEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='covenmsg' >";
-		break;
-
-		case "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.ShapeshifterSwappedPlayerIdentities, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-    case "Werewolf.GameEngine.Roles.Village.Protector.ProtectorTargetChosenEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-    case "Werewolf.GameEngine.Roles.NightTargetChosenEvent, Werewolf.GameEngine":
-		formatclass = "<tr class='modmsg' >";
-		break;
-
-    case "Werewolf.GameEngine.Phases.Day.DayStartedEvent, Werewolf.GameEngine":
-    formatclass = "<tr class='modmsg' >";
-    break;
-
-		default:
-		formatclass = "<tr class='villagemsg' >"
-
-
-		}
-		return formatclass
-	}
 //Create a new game to read
   function makegame()
   {
@@ -256,11 +193,30 @@
 					players[elem.SecondPlayer] = swapname1;
 					swapname1 = '';
 					swapname2 = '';
+        }
+        //account for familiar sacrifice
+          if (elem.__type == "Werewolf.GameEngine.Roles.Vampires.VampireRevived, Werewolf.GameEngine"){
 
+              $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.FirstPlayer]+' sacrificied himself for his Vampire lord '+players[elem.SecondPlayer]+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+              console.log('Found Vampire revive');
+              //swapping names
+              console.log('Swap '+players[elem.FirstPlayer]+' with '+players[elem.SecondPlayer]);
+              swapname1 = players[elem.FirstPlayer];
+              swapname2 = players[elem.SecondPlayer];
+              //console.log('swapname1 = '+swapname1);
+              console.log(swapname1+' is now '+swapname2);
+              players[elem.FirstPlayer] = players[elem.SecondPlayer];
+              console.log(swapname2+' is now '+swapname1);
+              players[elem.SecondPlayer] = swapname1;
+              swapname1 = '';
+              swapname2 = '';
+      //Find familiar recruitment
+    }
+      if (elem.__type == "Werewolf.GameEngine.Roles.FamiliarStalkerAssignedEvent, Werewolf.GameEngine"){
+      $('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+'Moderator'+'</td><td>'+players[elem.PlayerName]+' was recruited by the Vampire'+'</td><td>'+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
+      console.log('Found familiar recruitment');
+      }
 
-
-
-			}
 			//pre-game chat
 			 if (elem.__type == "Werewolf.GameEngine.Chatting.PendingGameMessage, Werewolf.GameEngine"){
 			$('table#tbl TBODY').append(formatter(elem.__type,0)+'<td>'+elem.PlayerName+'</td><td>'+elem.Message +'</td><td>'+weekday+'  '+stunden+':'+minuten+':'+sekunden+'</td><td></tr>');
