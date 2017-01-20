@@ -39,6 +39,14 @@
 		formatclass = "<tr class='covenmsg' >";
 		break;
 
+		case "Werewolf.GameEngine.Roles.Demons.DemonNightMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='demonmsg' >";
+		break;
+
+		case "Werewolf.GameEngine.Roles.Village.Masons.MasonNightMessageEvent, Werewolf.GameEngine":
+		formatclass = "<tr class='masonmsg' >";
+		break;
+
 		case "Werewolf.GameEngine.Roles.Werewolves.Shapeshifter.ShapeshifterSwappedPlayerIdentities, Werewolf.GameEngine":
 		formatclass = "<tr class='modmsg' >";
 		break;

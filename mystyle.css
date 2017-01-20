@@ -30,3 +30,14 @@ tr.vampmsg {
     color: orange;
 	display: none;
 }
+
+tr.masonmsg {
+    background-color: white;
+    color: blue;
+	display: none;
+}
+tr.masonmsg {
+    background-color: white;
+    color: green;
+	display: none;
+}

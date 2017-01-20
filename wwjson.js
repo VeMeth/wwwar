@@ -2,6 +2,7 @@
   document.getElementById('togglewolf').onclick = function() {hidewolves()};
   document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
   document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
+  document.getElementById('togglemasonchat').onclick = function() {hidemasonchat()};
   document.getElementById('togglecovenchat').onclick = function() {hidecovenchat()};
   document.getElementById('togglevampchat').onclick = function() {hidevampchat()};
 //Vars
@@ -56,12 +57,12 @@
 //hide Villager Chat
 		function hidetownchat() {
 		if (townhidden) {
-		document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
+		document.getElementById("toggletownchat").innerHTML = "Hide Town";
 		$('.villagemsg').show();
 		townhidden = false;
 		}
 		else {
-		document.getElementById("toggletownchat").innerHTML = "Show Townchat";
+		document.getElementById("toggletownchat").innerHTML = "Show Town";
 		$('.villagemsg').hide();
 		townhidden = true;
 		}
@@ -71,12 +72,12 @@
 	//hide Coven Chat
 		function hidecovenchat() {
 		if (covenhidden) {
-		document.getElementById("togglecovenchat").innerHTML = "Hide covenchat";
+		document.getElementById("togglecovenchat").innerHTML = "Hide Coven";
 		$('.covenmsg').show();
 		covenhidden = false;
 		}
 		else {
-		document.getElementById("togglecovenchat").innerHTML = "Show covenchat";
+		document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 		$('.covenmsg').hide();
 		covenhidden = true;
 		}
@@ -98,6 +99,33 @@
 
   }
 
+  //hide masonchat
+  	function hidemasonchat() {
+  		if (masonhidden) {
+  		document.getElementById("togglemasonchat").innerHTML = "Hide Mason";
+  		$('.masonmsg').show();
+  		masonhidden = false;
+  		}
+  		else {
+  		document.getElementById("togglemasonchat").innerHTML = "Show Mason";
+  		$('.masonmsg').hide();
+  		masonhidden = true;
+  		}
+}
+
+//hide demonchat
+  function hidedemonchat() {
+    if (demonhidden) {
+    document.getElementById("toggledemonchat").innerHTML = "Hide Demon";
+    $('.demonmsg').show();
+    demonhidden = false;
+    }
+    else {
+    document.getElementById("toggledemonchat").innerHTML = "Show Demon";
+    $('.demonmsg').hide();
+    demonhidden = true;
+    }
+}
 //Create a new game to read
   function makegame()
   {
@@ -105,6 +133,8 @@
 	wolfhidden = true;
 	deadhidden = true;
 	covenhidden = true;
+  demonhidden = true;
+  masonhidden = true;
 	townhidden = false;
   vamphidden = true;
   //reset more stuff
@@ -113,8 +143,10 @@
 	document.getElementById("togglewolf").innerHTML = "Show Wolves";
 	document.getElementById("togglecovenchat").innerHTML = "Show Coven";
 	document.getElementById("toggledeadchat").innerHTML = "Show salt mine";
-	document.getElementById("toggletownchat").innerHTML = "Hide Townchat";
-  	document.getElementById("togglevampchat").innerHTML = "Show vampires";
+	document.getElementById("toggletownchat").innerHTML = "Hide Town";
+  document.getElementById("togglevampchat").innerHTML = "Show Vampires";
+  document.getElementById("togglemasonchat").innerHTML = "Show Mason";
+  document.getElementById("toggledemonchat").innerHTML = "Show Demon";
 //Empty Links
   $('div#days').empty();
   console.log('Starting');
