@@ -3,6 +3,7 @@
   document.getElementById('toggledeadchat').onclick = function() {hidedeadchat()};
   document.getElementById('toggletownchat').onclick = function() {hidetownchat()};
   document.getElementById('togglemasonchat').onclick = function() {hidemasonchat()};
+  document.getElementById('toggledemonchat').onclick = function() {hidedemonchat()};
   document.getElementById('togglecovenchat').onclick = function() {hidecovenchat()};
   document.getElementById('togglevampchat').onclick = function() {hidevampchat()};
 //Vars
@@ -12,6 +13,7 @@
 	var wolfhidden = true;
 	var deadhidden = true;
 	var covenhidden = true;
+  var demonhidden = true;
   var vamphidden = true;
 	var townhidden = false;
 	var gamename = 'ext-053';
@@ -135,6 +137,7 @@
 	covenhidden = true;
   demonhidden = true;
   masonhidden = true;
+  demonhidden = true;
 	townhidden = false;
   vamphidden = true;
   //reset more stuff
